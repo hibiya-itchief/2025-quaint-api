@@ -1,0 +1,8 @@
+__pycache__/
+.env
+db/data
+.pytest_cache
+data/*
+app/ga-credential.json
+.prettierrc
+.vscode/

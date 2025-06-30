@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  db:
+    image: mysql:8
+    container_name: quaint-api-mysql-new
+    restart: always
+    env_file:
+      - ./app/.env
+    ports:
+      - "3307:3306"
+    volumes:
+      - quaint-api-db:/var/lib/mysql
+      - ./db/conf:/etc/mysql/conf.d
+      - ./db/initdb:/docker-entrypoint-initdb.d # test用dbが必要な場合
+
+  app:
+    image: python:3.11
+    depends_on:
+      - db
+    restart: always
+    volumes:
+      - .:/workspace:cached
+    ports:
+      - "8000:8000"
+    command: >
+      /bin/sh -c 'chmod +x /workspace/docker_startup.sh && /workspace/docker_startup.sh'
+
+  redis:
+    image: "redis:latest"
+    volumes:
+      - "./redis.conf:/etc/redis.conf"
+
+
+
+volumes:
+  quaint-api-db:
