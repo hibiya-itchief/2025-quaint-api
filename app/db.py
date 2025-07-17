@@ -18,7 +18,7 @@ DATABASE_URI = (
     + settings.db_host
     + "/"
     + settings.mysql_database
-    + "?charset=utf8mb4&ssl=true"
+    + "?ssl_mode=REQUIRED"
 )
 engine = create_engine(DATABASE_URI, pool_size=5100, max_overflow=100, pool_timeout=3)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
