@@ -33,6 +33,7 @@ from app.config import settings
 from app.ga import ga_screenpageview
 from app.msgraph import MsGraph
 from app.redis_possible import redis_get_if_possible, redis_set_if_possible
+from app.qr_jwt import create_qr_jwt
 
 # models.Base.metadata.create_all(bind=engine)
 
@@ -1395,3 +1396,11 @@ def change_news(
         raise HTTPException(HTTP_403_FORBIDDEN, "Adminまたはチーフ会の権限が必要です")
 
     return crud.update_news(db, news_id, news)
+
+
+
+
+@app.post("/generate-qr-jwt")
+def generate_qr_jwt(user_id: str, groups: list, name: str):
+    token = create_qr_jwt(user_id, groups, name)
+    return {"jwt": token}

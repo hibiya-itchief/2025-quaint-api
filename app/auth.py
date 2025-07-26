@@ -53,6 +53,10 @@ def verify_jwt(token:str=Depends(auth_scheme))->Dict[str,Any]:
             signing_key = ad_jwks_client.get_signing_key_from_jwt(token)
             decoded_jwt = jwt.decode(token, signing_key.key, algorithms=header['alg'],audience=settings.azure_ad_audience)
             return decoded_jwt
+        # QR用JWT
+        elif payload.get("iss") == "quaint-api":
+            decoded_jwt = jwt.decode(token, settings.JWT_PRIVATEKEY, algorithms=["RS256"])
+            return decoded_jwt
         else:
             raise HTTPException(status_code=HTTP_401_UNAUTHORIZED,detail="不正なトークンです")
     except Exception as e:

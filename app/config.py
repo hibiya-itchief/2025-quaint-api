@@ -23,7 +23,7 @@ class Settings(BaseSettings):
 
     jwt_privatekey: str = os.getenv("JWT_PRIVATEKEY")
     jwt_publickey: str = (
-        "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0i+BMxUUgG6slPW/9oHP\nUrYpoLX08NNTsFpEwAkpBHxzbauFc2SmFaFnmkkco8lfCQs66sj6fwtTtSc4RH+Z\nncFRaxV5M+AS7utyGhS9iNAg6u5DaGAxbMm1NAqUkuNLGS+pVx+p75b681inCBBu\nVxpPF0eCNMsUfMPDBKKKS6ABuIpl4Ep3BDXLCSfciBFixDA6poIDy7tryfcpglyw\nuq84ROrOBLU3kTaTM4zl8x2VRkGGdU88+7WhpVgB7s7uSJmzmWtojvDGp+1tylqp\nB4geNVB8rjqkZQjr9Y0oI2sJuIAYzDaBWwQsVUMmp2JO64kR8P1P7i99graUaGOd\nJwIDAQAB\n-----END PUBLIC KEY-----"
+        "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7gYzJGRWVIayIXiy1GNx\n/aIDLtymS9Z8jFrB8Z+/Gah2QBrZ9RsdiPsPZAyylN9y8T7B1YDaNoJMhgsNIKsj\nFD/UwCbGs/GTPS1RjAeje4p917Fx0Ly1hAa4y2FC3ZeHDn6kMdTbyjWTYZCCBHeE\nk1Ra3aq5fUrLgZ5shYKccP/C33SPygLNuzpl27vVZtZVu1v6Kvj3VSJGpa7n9lb9\nDallWBAHv4HEfh51dzkAcK/eiZBgqmPUpR/gun9SxhT42hTQSH4fMzT4HkfiIyDz\nAKANr9QUetWCUw7HpcRMXbwjxKtN+Qer+0mkxTkh9X5XcXikaUnGproRxqS3J0pX\nJQIDAQAB\n-----END PUBLIC KEY-----"
     )
 
     # 星陵祭の設定
