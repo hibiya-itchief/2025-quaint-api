@@ -12,5 +12,5 @@ def create_qr_jwt(user_id, groups, name):
         "iss": "quaint-api", # 独自issuer
         "jti": ulid.new().str          # 一意ID
     }
-    token = jwt.encode(payload, settings.JWT_PRIVATEKEY, algorithm="RS256")
+    token = jwt.encode(payload, settings.jwt_privatekey, algorithm="RS256")
     return token

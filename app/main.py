@@ -1399,8 +1399,16 @@ def change_news(
 
 
 
-
-@app.post("/generate-qr-jwt")
-def generate_qr_jwt(user_id: str, groups: list, name: str):
+#実験が終わったら権限確認をつける
+@app.post(
+    "/generate-qr-jwt",
+    summary="QR用JWTトークンの発行",
+    tags=["admin", "chief"],
+)
+def generate_qr_jwt(
+    user_id: str,
+    groups: List[str],
+    name: str
+):
     token = create_qr_jwt(user_id, groups, name)
     return {"jwt": token}
