@@ -1447,7 +1447,7 @@ async def login(response: Response, token: str = Body(..., embed=True)):
             value=token,
             httponly=True,
             secure=settings.secure_cookie,
-            samesite="none",          # クロスオリジンのため
+            samesite=settings.samesite_cookie,          # クロスオリジンのため
             path="/",
             expires=datetime.now(timezone.utc) + timedelta(days=1)
         )
