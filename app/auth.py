@@ -55,7 +55,7 @@ def verify_jwt(token:str=Depends(auth_scheme))->Dict[str,Any]:
             return decoded_jwt
         # QR用JWT
         elif payload.get("iss") == "quaint-api":
-            decoded_jwt = jwt.decode(token, settings.JWT_PRIVATEKEY, algorithms=["RS256"])
+            decoded_jwt = jwt.decode(token, settings.jwt_publickey, algorithms=["RS256"])
             return decoded_jwt
         else:
             raise HTTPException(status_code=HTTP_401_UNAUTHORIZED,detail="不正なトークンです")
