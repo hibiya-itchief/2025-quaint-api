@@ -1,6 +1,7 @@
 import json
 import time
 import re
+import jwt
 from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional, Union
 from xml.dom.minidom import Entity
@@ -1412,3 +1413,34 @@ def generate_qr_jwt(
 ):
     token = create_qr_jwt(user_id, groups, name)
     return {"jwt": token}
+
+
+@app.get(
+    "/session",
+    summary="ユーザー情報を返す",)
+def get_session(decoded_jwt: dict = Depends(auth.verify_jwt)):
+    user_id = decoded_jwt.get("sub")
+    if user_id is None:
+        raise HTTPException(status_code=401, detail="不正なtoken")
+    #チェック用
+    print({
+        "user": user_id,
+        "groups": decoded_jwt.get("groups", []),
+        "exp": decoded_jwt.get("exp")
+    })
+    return {
+        "user": user_id,
+        "groups": decoded_jwt.get("groups", []),
+        "exp": decoded_jwt.get("exp")
+    }
+
+
+@app.post(
+    "/login",
+    summary="JWTトークンでログイン",)
+async def login(token: str = Body(..., embed=True)):
+    try:
+        decoded = auth.verify_jwt(token)
+        return {"token": token}
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid token")
