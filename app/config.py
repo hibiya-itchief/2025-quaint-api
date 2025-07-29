@@ -22,9 +22,7 @@ class Settings(BaseSettings):
     mysql_database: str = os.getenv("MYSQL_DATABASE")
 
     jwt_privatekey: str = os.getenv("JWT_PRIVATEKEY")
-    jwt_publickey: str = (
-        "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7gYzJGRWVIayIXiy1GNx\n/aIDLtymS9Z8jFrB8Z+/Gah2QBrZ9RsdiPsPZAyylN9y8T7B1YDaNoJMhgsNIKsj\nFD/UwCbGs/GTPS1RjAeje4p917Fx0Ly1hAa4y2FC3ZeHDn6kMdTbyjWTYZCCBHeE\nk1Ra3aq5fUrLgZ5shYKccP/C33SPygLNuzpl27vVZtZVu1v6Kvj3VSJGpa7n9lb9\nDallWBAHv4HEfh51dzkAcK/eiZBgqmPUpR/gun9SxhT42hTQSH4fMzT4HkfiIyDz\nAKANr9QUetWCUw7HpcRMXbwjxKtN+Qer+0mkxTkh9X5XcXikaUnGproRxqS3J0pX\nJQIDAQAB\n-----END PUBLIC KEY-----"
-    )
+    jwt_publickey: str = os.getenv("JWT_PUBLICKEY")
 
     # 星陵祭の設定
     family_ticket_sell_starts: str = os.getenv("FAMILY_TICKET_SELL_STARTS")
@@ -97,6 +95,9 @@ class Settings(BaseSettings):
 
     ## Google Analytics Property ID
     ga_property_id: str = os.getenv("GA_PROPERTY_ID", "")
+
+    ##CookieをHTTPS通信でのみ送信にするか
+    secure_cookie = os.getenv("ENV") == "production"
 
     class Config:
         env_file = "app/.env"

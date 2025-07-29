@@ -18,6 +18,7 @@ from fastapi import (
     Query,
     UploadFile,
     status,
+    Response
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -1435,12 +1436,22 @@ def get_session(decoded_jwt: dict = Depends(auth.verify_jwt)):
     }
 
 
-@app.post(
-    "/login",
-    summary="JWTトークンでログイン",)
-async def login(token: str = Body(..., embed=True)):
+@app.post("/login", summary="JWTトークンでログイン")
+async def login(response: Response, token: str = Body(..., embed=True)):
     try:
         decoded = auth.verify_jwt(token)
+        
+        # Cookieにトークンを設定
+        response.set_cookie(
+            key="seiryo_token",
+            value=token,
+            httponly=True,
+            secure=settings.secure_cookie,
+            samesite="none",          # クロスオリジンのため
+            path="/",
+            expires=datetime.now(timezone.utc) + timedelta(days=1)
+        )
+
         return {"token": token}
     except Exception:
         raise HTTPException(status_code=401, detail="Invalid token")
