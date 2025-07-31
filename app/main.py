@@ -1440,17 +1440,6 @@ def get_session(decoded_jwt: dict = Depends(auth.verify_jwt)):
 async def login(response: Response, token: str = Body(..., embed=True)):
     try:
         decoded = auth.verify_jwt(token)
-        
-        # Cookieにトークンを設定
-        response.set_cookie(
-            key="auth.token",
-            value=token,
-            httponly=settings.httponly_cookie,
-            secure=settings.secure_cookie,
-            samesite=settings.samesite_cookie,          # クロスオリジンのため
-            path="/",
-            expires=datetime.now(timezone.utc) + timedelta(days=1)
-        )
 
         return { "token": token }
     except Exception:
