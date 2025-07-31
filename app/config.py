@@ -99,6 +99,8 @@ class Settings(BaseSettings):
     ##CookieをHTTPS通信でのみ送信にするか
     secure_cookie = os.getenv("ENV") == "production"
 
+    httponly_cookie = os.getenv("ENV") == "production"
+
     if os.getenv("ENV") == "production":
         samesite_cookie = "None"
     else:

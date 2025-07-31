@@ -1443,15 +1443,15 @@ async def login(response: Response, token: str = Body(..., embed=True)):
         
         # Cookieにトークンを設定
         response.set_cookie(
-            key="seiryo_token",
+            key="auth.token",
             value=token,
-            httponly=True,
+            httponly=settings.httponly_cookie,
             secure=settings.secure_cookie,
             samesite=settings.samesite_cookie,          # クロスオリジンのため
             path="/",
             expires=datetime.now(timezone.utc) + timedelta(days=1)
         )
 
-        return {"token": token}
+        return { "token": token }
     except Exception:
         raise HTTPException(status_code=401, detail="Invalid token")
